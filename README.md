@@ -49,7 +49,7 @@ python manage.py createsuperuser
 
 # Запустить сервер
 python manage.py runserver
-
+```bash
 Откройте в браузере http://127.0.0.1:8000.
 
 ##Начальная настройка
