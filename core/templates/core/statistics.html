@@ -1,0 +1,33 @@
+{% extends 'core/base.html' %}
+{% block content %}
+<h2>Статистика</h2>
+<div class="row">
+    <div class="col-md-4">
+        <div class="card text-center">
+            <div class="card-body">
+                <h5 class="card-title">Всего слов в изучении</h5>
+                <p class="card-text display-4">{{ total_words }}</p>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="card text-center">
+            <div class="card-body">
+                <h5 class="card-title">Выучено слов (stage 5)</h5>
+                <p class="card-text display-4">{{ learned }}</p>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="card text-center">
+            <div class="card-body">
+                <h5 class="card-title">Успешность за 7 дней</h5>
+                <p class="card-text display-4">{{ success_rate }}%</p>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="mt-4">
+    <h4>Всего попыток: {{ attempts_total }}</h4>
+</div>
+{% endblock %}

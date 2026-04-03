@@ -1,0 +1,10 @@
+{% extends 'core/base.html' %}
+{% block content %}
+<h2>Удаление слова</h2>
+<p>Вы уверены, что хотите удалить слово <strong>{{ word.word }}</strong>?</p>
+<form method="post">
+    {% csrf_token %}
+    <button type="submit" class="btn btn-danger">Да, удалить</button>
+    <a href="{% url 'word_list' %}" class="btn btn-secondary">Отмена</a>
+</form>
+{% endblock %}

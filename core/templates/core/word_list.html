@@ -1,0 +1,34 @@
+{% extends 'core/base.html' %}
+{% block content %}
+<h2>Список слов</h2>
+{% if user.is_staff %}
+    <a href="{% url 'word_add' %}" class="btn btn-success mb-3">Добавить слово</a>
+{% endif %}
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>Слово</th>
+            <th>Перевод</th>
+            <th>Урок</th>
+            <th>Действия</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for word in words %}
+        <tr>
+            <td>{{ word.word }}</td>
+            <td>{{ word.translation }}</td>
+            <td>{{ word.lesson.title|default:"—" }}</td>
+            <td>
+                {% if user.is_staff %}
+                    <a href="{% url 'word_edit' word.id %}" class="btn btn-sm btn-primary">Редактировать</a>
+                    <a href="{% url 'word_delete' word.id %}" class="btn btn-sm btn-danger">Удалить</a>
+                {% endif %}
+            </td>
+        </tr>
+        {% empty %}
+        <tr><td colspan="4">Слова отсутствуют</td></tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}

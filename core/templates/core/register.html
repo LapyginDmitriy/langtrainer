@@ -1,0 +1,46 @@
+{% extends 'core/base.html' %}
+{% block content %}
+<h2>Регистрация</h2>
+<form method="post">
+    {% csrf_token %}
+    <div class="mb-3">
+        <label for="id_username" class="form-label">Имя пользователя:</label>
+        <input type="text" name="username" id="id_username" class="form-control" required>
+        <div class="form-text">Обязательное поле. Не более 150 символов. Только буквы, цифры и символы @/./+/-/_.</div>
+        {% if form.username.errors %}
+            <div class="alert alert-danger">{{ form.username.errors }}</div>
+        {% endif %}
+    </div>
+    <div class="mb-3">
+        <label for="id_email" class="form-label">Электронная почта:</label>
+        <input type="email" name="email" id="id_email" class="form-control" required>
+        {% if form.email.errors %}
+            <div class="alert alert-danger">{{ form.email.errors }}</div>
+        {% endif %}
+    </div>
+    <div class="mb-3">
+        <label for="id_password1" class="form-label">Пароль:</label>
+        <input type="password" name="password1" id="id_password1" class="form-control" required>
+        <div class="form-text">
+            <ul>
+                <li>Ваш пароль не должен быть слишком похож на другую личную информацию.</li>
+                <li>Ваш пароль должен содержать не менее 8 символов.</li>
+                <li>Ваш пароль не может быть слишком простым (часто используемым).</li>
+                <li>Ваш пароль не может состоять только из цифр.</li>
+            </ul>
+        </div>
+        {% if form.password1.errors %}
+            <div class="alert alert-danger">{{ form.password1.errors }}</div>
+        {% endif %}
+    </div>
+    <div class="mb-3">
+        <label for="id_password2" class="form-label">Подтверждение пароля:</label>
+        <input type="password" name="password2" id="id_password2" class="form-control" required>
+        <div class="form-text">Введите тот же пароль, что и выше, для проверки.</div>
+        {% if form.password2.errors %}
+            <div class="alert alert-danger">{{ form.password2.errors }}</div>
+        {% endif %}
+    </div>
+    <button type="submit" class="btn btn-primary">Зарегистрироваться</button>
+</form>
+{% endblock %}

@@ -1,0 +1,46 @@
+{% extends 'core/base.html' %}
+{% block content %}
+<h2>Повторение</h2>
+<p class="lead">Урок: {{ lesson_title }}</p>
+{% if error %}
+    <div class="alert alert-danger">{{ error }}</div>
+{% elif limit_reached %}
+    <div class="alert alert-info">Вы уже использовали все 5 попыток сегодня. Возвращайтесь завтра!</div>
+{% elif no_words %}
+    <div class="alert alert-success">На сегодня нет слов для повторения в этом уроке. Отличная работа!</div>
+{% else %}
+    <div class="card">
+        <div class="card-body">
+            <h5 class="card-title">{{ word.word }}</h5>
+            <p class="card-text">
+                {% if word.transcription %}
+                    <small>{{ word.transcription }}</small>
+                {% endif %}
+                <br>
+                <button id="speak-btn" class="btn btn-sm btn-secondary">🔊 Произнести</button>
+            </p>
+            <form method="post" action="{% url 'check_answer' %}">
+                {% csrf_token %}
+                <input type="hidden" name="word_id" value="{{ word.id }}">
+                <div class="mb-3">
+                    <label for="answer" class="form-label">Перевод:</label>
+                    <input type="text" class="form-control" id="answer" name="answer" required>
+                </div>
+                <button type="submit" class="btn btn-primary">Проверить</button>
+            </form>
+            <p class="mt-2">Осталось попыток сегодня: {{ remaining }} из 5</p>
+            <p class="text-muted">Уровень слова: {{ user_word.stage }} (чем выше, тем реже повторение)</p>
+        </div>
+    </div>
+    <script>
+        const speakBtn = document.getElementById('speak-btn');
+        if (speakBtn) {
+            speakBtn.addEventListener('click', () => {
+                const utterance = new SpeechSynthesisUtterance('{{ word.word }}');
+                utterance.lang = 'en-US';
+                window.speechSynthesis.speak(utterance);
+            });
+        }
+    </script>
+{% endif %}
+{% endblock %}

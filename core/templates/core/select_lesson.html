@@ -1,0 +1,17 @@
+{% extends 'core/base.html' %}
+{% block content %}
+<h2>Выберите урок</h2>
+<form method="post">
+    {% csrf_token %}
+    <div class="mb-3">
+        <label for="lesson_id" class="form-label">Уроки:</label>
+        <select name="lesson_id" id="lesson_id" class="form-select" required>
+            <option value="">-- Выберите --</option>
+            {% for lesson in lessons %}
+                <option value="{{ lesson.id }}">{{ lesson.title }}</option>
+            {% endfor %}
+        </select>
+    </div>
+    <button type="submit" class="btn btn-primary">Начать повторение</button>
+</form>
+{% endblock %}
